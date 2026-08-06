@@ -129,6 +129,11 @@ jobs:
             curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs \
               | sh -s -- -y --default-toolchain stable --profile minimal
             . "$HOME/.cargo/env"
+            # Alpine is already musl, so this is a native build — but passing
+            # --target makes cargo look for a cross-prefixed linker that does not
+            # exist here. Point both musl targets at the native compiler.
+            export CARGO_TARGET_X86_64_UNKNOWN_LINUX_MUSL_LINKER=gcc
+            export CARGO_TARGET_AARCH64_UNKNOWN_LINUX_MUSL_LINKER=gcc
             # Not corepack: its bundled signing keys are too old to verify pnpm.
             npm install -g --force pnpm@10
             pnpm install --frozen-lockfile
