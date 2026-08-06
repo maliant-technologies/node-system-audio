@@ -1,0 +1,43 @@
+{
+  "name": "@maliant-technologies/node-system-audio-darwin-arm64",
+  "version": "0.1.0",
+  "cpu": [
+    "arm64"
+  ],
+  "main": "node-system-audio.darwin-arm64.node",
+  "files": [
+    "node-system-audio.darwin-arm64.node"
+  ],
+  "description": "Cross-platform system audio (loopback) capture with a rolling retention buffer, as a Node native addon.",
+  "keywords": [
+    "audio",
+    "loopback",
+    "system-audio",
+    "capture",
+    "recording",
+    "wasapi",
+    "coreaudio",
+    "pipewire",
+    "napi-rs",
+    "native-addon"
+  ],
+  "author": "Callum Gander",
+  "homepage": "https://github.com/maliant-technologies/node-system-audio#readme",
+  "license": "MIT",
+  "engines": {
+    "node": ">= 20"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/maliant-technologies/node-system-audio.git"
+  },
+  "bugs": {
+    "url": "https://github.com/maliant-technologies/node-system-audio/issues"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "os": [
+    "darwin"
+  ]
+}

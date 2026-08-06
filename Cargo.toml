@@ -1,0 +1,63 @@
+[package]
+name = "node-system-audio"
+version = "0.1.0"
+edition = "2021"
+rust-version = "1.85"
+license = "MIT"
+publish = false
+description = "Native Node addon for cross-platform system audio (loopback) capture with a rolling retention buffer."
+readme = "README.md"
+keywords = ["audio", "loopback", "capture", "napi", "system-audio"]
+categories = ["multimedia::audio", "api-bindings"]
+
+[lib]
+crate-type = ["cdylib"]
+
+[features]
+default = []
+# macOS only, opt-in. Resolves TCCAccessPreflight/TCCAccessRequest out of the
+# private TCC framework so permission can be checked *before* capture starts.
+# Off by default — see README "Permissions". Nothing depends on it succeeding.
+tcc-preflight = []
+
+[dependencies]
+napi = { version = "3", default-features = false, features = ["napi4"] }
+napi-derive = "3"
+thiserror = "2"
+
+# 0.18.1 is the floor on purpose: it carries the CoreAudio loopback fixes for
+# UB in device creation, aggregate-device UID collisions between concurrent
+# instances, and "loopback capture returns silence" from a non-auto-started tap.
+cpal = "0.18.1"
+
+# Pinned to 0.16 deliberately. rubato 4.x rewrote the API around the
+# `audioadapter` zero-copy buffer stack, which is shaped for streaming
+# multi-channel work. We do one fixed-ratio mono downmix, where 0.16's
+# `FftFixedIn` is a direct fit and pulls no extra crates.
+rubato = "0.16"
+
+# Both are already in the tree via cpal; declared so the TCC path compiles
+# without adding anything new.
+[target.'cfg(target_os = "macos")'.dependencies]
+libc = "0.2"
+objc2-core-foundation = "0.3"
+
+[build-dependencies]
+napi-build = "2"
+
+[profile.release]
+opt-level = 3
+lto = "fat"
+# One codegen unit lets LLVM see the whole crate at once. Worth it here: the
+# resampler and the ring are the hot path and both benefit from cross-module
+# inlining. Slower to build, and this is built once per release.
+codegen-units = 1
+strip = "symbols"
+# NOT `panic = "abort"`: a panic in the capture callback or the worker must
+# unwind so the Mutex is poisoned and the JS side is told, rather than taking
+# the entire host process down with it.
+
+[profile.bench]
+inherits = "release"
+debug = true
+strip = "none"

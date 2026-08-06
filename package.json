@@ -1,0 +1,72 @@
+{
+  "name": "@maliant-technologies/node-system-audio",
+  "version": "0.1.0",
+  "description": "Cross-platform system audio (loopback) capture with a rolling retention buffer, as a Node native addon.",
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "author": "Callum Gander",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/maliant-technologies/node-system-audio.git"
+  },
+  "bugs": {
+    "url": "https://github.com/maliant-technologies/node-system-audio/issues"
+  },
+  "homepage": "https://github.com/maliant-technologies/node-system-audio#readme",
+  "keywords": [
+    "audio",
+    "loopback",
+    "system-audio",
+    "capture",
+    "recording",
+    "wasapi",
+    "coreaudio",
+    "pipewire",
+    "napi-rs",
+    "native-addon"
+  ],
+  "main": "index.js",
+  "types": "index.d.ts",
+  "napi": {
+    "binaryName": "node-system-audio",
+    "targets": [
+      "aarch64-apple-darwin",
+      "x86_64-apple-darwin",
+      "x86_64-pc-windows-msvc",
+      "aarch64-pc-windows-msvc",
+      "x86_64-unknown-linux-gnu",
+      "aarch64-unknown-linux-gnu",
+      "x86_64-unknown-linux-musl",
+      "aarch64-unknown-linux-musl"
+    ]
+  },
+  "files": [
+    "index.js",
+    "index.d.ts"
+  ],
+  "engines": {
+    "node": ">= 20"
+  },
+  "scripts": {
+    "artifacts": "napi artifacts",
+    "build": "napi build --platform --release",
+    "build:debug": "napi build --platform",
+    "build:preflight": "napi build --platform --release --features tcc-preflight",
+    "create-npm-dirs": "napi create-npm-dirs",
+    "prepublishOnly": "napi pre-publish -t npm",
+    "version": "napi version",
+    "test": "cargo test && node --test '__test__/**/*.spec.mjs'",
+    "test:rust": "cargo test",
+    "test:js": "node --test '__test__/**/*.spec.mjs'",
+    "example:permission": "node examples/permission-check.mjs",
+    "example:record": "node examples/record-clip.mjs",
+    "lint": "cargo clippy --all-targets -- -D warnings",
+    "fmt": "cargo fmt",
+    "audit": "cargo deny check"
+  },
+  "devDependencies": {
+    "@napi-rs/cli": "^3.0.0"
+  }
+}

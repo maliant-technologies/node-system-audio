@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; media-src blob:; style-src 'self' 'unsafe-inline'" />
+    <title>node-system-audio</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header>
+      <h1>node-system-audio</h1>
+      <div id="env" class="env"></div>
+      <span class="spacer"></span>
+      <span id="permission" class="pill">checking…</span>
+      <button id="open-settings" class="ghost" hidden>System Settings</button>
+    </header>
+
+    <!-- Tells you what to do next, because the difference between freeze and
+         stop is the difference between keeping and losing your audio. -->
+    <div id="guide" class="guide"></div>
+
+    <p id="error" class="error" hidden></p>
+
+    <section class="panel">
+      <div class="row controls">
+        <button id="start" class="primary big">Start recording</button>
+        <button id="freeze" class="primary big" hidden>Freeze &amp; review</button>
+        <button id="resume" hidden>Resume recording</button>
+        <button id="stop" class="danger" hidden>Discard</button>
+        <span class="spacer"></span>
+        <label class="retention">
+          Retention
+          <input id="retention" type="range" min="10" max="600" step="10" value="60" />
+          <output id="retention-value">60s</output>
+        </label>
+      </div>
+    </section>
+
+    <section class="panel">
+      <div class="row">
+        <span class="label">Buffer</span>
+        <span id="wave-hint" class="note"></span>
+        <span class="spacer"></span>
+        <span id="selection" class="mono">—</span>
+      </div>
+
+      <canvas id="wave" height="200"></canvas>
+
+      <div class="row selection-row">
+        <button id="select-tail" disabled>Last 5s</button>
+        <button id="select-tail-10" disabled>Last 10s</button>
+        <button id="select-all" disabled>Everything</button>
+        <span class="spacer"></span>
+        <button id="cut" class="primary" disabled>Cut clip →</button>
+      </div>
+    </section>
+
+    <section class="panel clip" id="clip-panel">
+      <div class="row">
+        <span class="label">Clip</span>
+        <span id="clip-info" class="mono">nothing cut yet</span>
+        <span class="spacer"></span>
+        <button id="save" disabled>Save as WAV…</button>
+      </div>
+      <audio id="player" controls></audio>
+    </section>
+
+    <section class="panel">
+      <div class="stats" id="stats"></div>
+    </section>
+
+    <script src="renderer.js"></script>
+  </body>
+</html>

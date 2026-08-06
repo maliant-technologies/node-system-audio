@@ -1,0 +1,25 @@
+{
+  "name": "node-system-audio-example",
+  "productName": "SystemAudioExample",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Electron harness for node-system-audio — exercises the whole API and, crucially, gives macOS a real bundle identity to prompt about.",
+  "main": "src/main.js",
+  "scripts": {
+    "start": "electron-forge start",
+    "package": "electron-forge package",
+    "open": "open out/SystemAudioExample-darwin-arm64/SystemAudioExample.app",
+    "resign": "bash scripts/resign-adhoc.sh"
+  },
+  "devDependencies": {
+    "@electron-forge/cli": "^7.6.0",
+    "@electron-forge/plugin-auto-unpack-natives": "^7.6.0",
+    "electron": "^37.4.0"
+  },
+  "dependencies": {
+    "node-system-audio": "file:../.."
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": ["electron"]
+  }
+}

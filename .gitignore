@@ -1,0 +1,14 @@
+target/
+node_modules/
+
+# Build output. Binaries are published as per-platform npm packages built in
+# CI, not committed. `npm/*/` dirs are tracked but their .node payloads are not.
+*.node
+
+# Packaged Electron output from examples/electron-app
+out/
+
+# Clips written by the examples
+*.wav
+
+.DS_Store

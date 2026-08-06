@@ -1,0 +1,58 @@
+# cargo-deny — supply-chain controls for the Cargo side.
+#
+# The consuming monorepo has deliberate npm supply-chain settings (a release-age
+# quarantine, registry-only transitive deps, an explicit build-script allowlist).
+# None of that reaches crates.io, so this is the equivalent for the Rust
+# dependency tree this addon introduces.
+#
+#   cargo deny check
+
+[graph]
+targets = [
+    "aarch64-apple-darwin",
+    "x86_64-apple-darwin",
+    "x86_64-pc-windows-msvc",
+    "x86_64-unknown-linux-gnu",
+]
+
+[advisories]
+version = 2
+yanked = "deny"
+ignore = []
+
+[licenses]
+version = 2
+# Permissive only. Anything copyleft would propagate into the consuming
+# application, which ships as a signed desktop binary.
+#
+# This list mirrors what the tree actually uses, and nothing more. An allowance
+# for a licence no dependency carries is not free caution — it pre-approves that
+# class, so a future dependency introducing it slips in silently instead of
+# failing the build and forcing the decision. Add an entry when something needs
+# it, having looked at what needs it.
+allow = [
+    "MIT",
+    "Apache-2.0",
+    "BSD-2-Clause",
+    "ISC",
+    "Unicode-3.0",
+    "Unlicense",
+    "Zlib",
+]
+confidence-threshold = 0.9
+
+[bans]
+multiple-versions = "warn"
+wildcards = "deny"
+# Nothing may pull in a second audio backend behind our back — the point of this
+# crate is that cpal is the single capture path.
+deny = []
+skip = []
+
+[sources]
+unknown-registry = "deny"
+unknown-git = "deny"
+allow-registry = ["https://github.com/rust-lang/crates.io-index"]
+# No git dependencies. Everything resolves from crates.io, where yanking and
+# provenance actually work.
+allow-git = []

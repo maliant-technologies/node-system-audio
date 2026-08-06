@@ -1,0 +1,6 @@
+[toolchain]
+# Pinned to stable rather than floating: this crate is compiled once per release
+# into binaries that get committed, so a toolchain change should be a deliberate
+# commit rather than whatever the build machine happened to have.
+channel = "stable"
+components = ["rustfmt", "clippy"]

@@ -1,0 +1,115 @@
+:root {
+  --bg: #0f1115;
+  --panel: #171a21;
+  --line: #262b36;
+  --text: #e6e9ef;
+  --muted: #8b93a5;
+  --accent: #4ea1ff;
+  --good: #46c98b;
+  --bad: #ff6b6b;
+  --warn: #ffb454;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  padding: 20px 24px 28px;
+  background: var(--bg);
+  color: var(--text);
+  font: 14px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+}
+
+header { display: flex; align-items: center; gap: 14px; margin-bottom: 14px; }
+h1 { font-size: 17px; margin: 0; font-weight: 600; }
+.env { color: var(--muted); font-size: 11px; font-family: ui-monospace, SFMono-Regular, monospace; }
+.spacer { flex: 1; }
+
+/* The line that stops you pressing the destructive button by accident. */
+.guide {
+  padding: 11px 14px;
+  border-radius: 8px;
+  font-size: 13px;
+  margin-bottom: 14px;
+  border: 1px solid var(--line);
+  background: #12151c;
+  color: var(--muted);
+}
+.guide.running { border-color: rgba(70, 201, 139, 0.4); color: var(--good); background: rgba(70, 201, 139, 0.08); }
+.guide.frozen { border-color: rgba(255, 180, 84, 0.4); color: var(--warn); background: rgba(255, 180, 84, 0.08); }
+
+.panel {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 16px;
+  margin-bottom: 14px;
+}
+
+.row { display: flex; align-items: center; gap: 10px; }
+.row + .row { margin-top: 12px; }
+
+.label { color: var(--muted); font-size: 11px; text-transform: uppercase; letter-spacing: 0.07em; }
+.note { color: var(--muted); font-size: 12px; }
+.mono { font-family: ui-monospace, SFMono-Regular, monospace; font-size: 12px; color: var(--muted); }
+
+button {
+  background: #232838;
+  color: var(--text);
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  padding: 7px 14px;
+  font-size: 13px;
+  cursor: pointer;
+}
+button:hover:not(:disabled) { border-color: #3a4152; }
+button:disabled { opacity: 0.35; cursor: default; }
+button.primary { background: var(--accent); border-color: var(--accent); color: #08121f; font-weight: 600; }
+button.big { padding: 10px 20px; font-size: 14px; }
+button.danger { border-color: #4a2b2b; color: var(--bad); background: transparent; }
+button.ghost { background: transparent; }
+
+.pill { padding: 3px 10px; border-radius: 999px; font-size: 11px; font-weight: 600; background: #232838; }
+.pill.granted, .pill.notRequired { background: rgba(70, 201, 139, 0.15); color: var(--good); }
+.pill.denied { background: rgba(255, 107, 107, 0.15); color: var(--bad); }
+.pill.unknown { background: rgba(255, 180, 84, 0.15); color: var(--warn); }
+
+.controls { flex-wrap: wrap; }
+.retention { display: flex; align-items: center; gap: 8px; color: var(--muted); font-size: 12px; }
+.retention input { width: 150px; }
+.retention output { font-family: ui-monospace, monospace; color: var(--text); min-width: 42px; }
+
+canvas {
+  width: 100%;
+  display: block;
+  background: #0b0d12;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  margin: 12px 0;
+}
+canvas:hover { border-color: #3a4152; }
+
+.selection-row { flex-wrap: wrap; }
+
+.clip { opacity: 0.5; transition: opacity 0.15s; }
+.clip.has-clip { opacity: 1; border-color: rgba(78, 161, 255, 0.35); }
+audio { width: 100%; margin-top: 12px; }
+
+.stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; }
+.stat { background: #12151c; border: 1px solid var(--line); border-radius: 8px; padding: 9px 11px; }
+.stat .k { color: var(--muted); font-size: 10px; text-transform: uppercase; letter-spacing: 0.06em; }
+.stat .v { font-family: ui-monospace, monospace; font-size: 14px; margin-top: 3px; }
+.stat .v.state-running { color: var(--good); }
+.stat .v.state-frozen { color: var(--warn); }
+.stat .v.state-idle { color: var(--muted); }
+
+.error {
+  color: var(--bad);
+  background: rgba(255, 107, 107, 0.1);
+  border: 1px solid rgba(255, 107, 107, 0.3);
+  border-radius: 7px;
+  padding: 9px 12px;
+  margin: 0 0 14px;
+  font-family: ui-monospace, monospace;
+  font-size: 12px;
+}
