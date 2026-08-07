@@ -197,8 +197,9 @@ jobs:
           version: 10
 
       # Trusted publishing (OIDC) needs npm 11.5.1+; Node 22 ships 10.x.
-      # Harmless with a token, and required once we switch.
-      - run: npm install -g npm@latest
+      # Pinned to 11 rather than latest: npm 12 breaks `napi pre-publish`, which
+      # validates each platform package with `npm pack --dry-run`.
+      - run: npm install -g npm@11
 
       - run: pnpm install --frozen-lockfile
 
