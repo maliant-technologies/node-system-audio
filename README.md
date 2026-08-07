@@ -26,10 +26,11 @@ The buffer lives in Rust. 15 minutes of mono 16 kHz is ~28 MB that never crosses
 ## Installation
 
 ```bash
-npm install @maliant-technologies/node-system-audio
+pnpm add @maliant-technologies/node-system-audio
+# or: npm install / yarn add
 ```
 
-Prebuilt binaries ship as per-platform optional dependencies, so npm downloads only the one matching your machine. No build step, no Rust toolchain, no `node-gyp`.
+Prebuilt binaries ship as per-platform optional dependencies, so your package manager downloads only the one matching your machine. No build step, no Rust toolchain, no `node-gyp`.
 
 N-API is ABI-stable, so the same binary works across Node and Electron versions without rebuilding.
 
